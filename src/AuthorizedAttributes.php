@@ -3,6 +3,7 @@
 namespace Salomoni;
 
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 
 trait AuthorizedAttributes
 {
@@ -36,6 +37,6 @@ trait AuthorizedAttributes
      */
     protected function getAttributeAbilityMethod($attribute)
     {
-        return 'see'.ucfirst($attribute);
+        return 'see'.Str::studly($attribute);
     }
 }
