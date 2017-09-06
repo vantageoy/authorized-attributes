@@ -1,0 +1,22 @@
+{
+    "name": "salomoni/authorized-attributes",
+    "description": "Dynamic Model attribute visibility for Laravel.",
+    "license": "MIT",
+    "keywords": ["laravel", "attributes", "authorization", "hidden"],
+    "authors": [
+        {
+            "name": "Jari Pekkala",
+            "email": "jari.pekkala@outlook.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "illuminate/auth": "5.4.x|5.5.x",
+        "illuminate/support": "5.4.x|5.5.x"
+    },
+    "autoload": {
+        "psr-4": {
+            "Salomoni\\": "src/"
+        }
+    }
+}
