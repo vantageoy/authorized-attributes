@@ -11,8 +11,8 @@
     ],
     "require": {
         "php": ">=5.6.4",
-        "illuminate/auth": "5.4.x|5.5.x",
-        "illuminate/support": "5.4.x|5.5.x"
+        "illuminate/auth": "5.4.x|5.5.x|5.6.x",
+        "illuminate/support": "5.4.x|5.5.x|5.6.x"
     },
     "autoload": {
         "psr-4": {
