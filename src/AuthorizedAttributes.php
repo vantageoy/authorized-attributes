@@ -22,7 +22,7 @@ trait AuthorizedAttributes
             $ability = $this->getAttributeAbilityMethod($attribute);
 
             if (is_callable([$policy, $ability])) {
-                return Gate::denies($ability, self::class);
+                return Gate::denies($ability, $this);
             }
 
             return true;
