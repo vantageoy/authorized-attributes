@@ -44,6 +44,7 @@ class Post extends Model
 
 namespace App\Policies;
 
+use App\Post;
 use App\User;
 
 class PostPolicy
@@ -52,11 +53,12 @@ class PostPolicy
      * Determine if a post author_comments-atrribute can be seen by the user.
      *
      * @param  \App\User  $user
+     * @param  \App\Post  $post
      * @return bool
      */
-    public function seeAuthorComments(User $user)
+    public function seeAuthorComments(User $user, Post $post)
     {
-        return $user->isAuthor();
+        return $user->isAuthor() || $user->created($post);
     }
 }
 ```
