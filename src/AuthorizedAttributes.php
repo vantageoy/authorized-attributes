@@ -19,7 +19,7 @@ trait AuthorizedAttributes
         }
 
         return array_filter($this->hidden, function ($attribute) use ($policy) {
-            $ability = $this->getAttributeAbilityMethod($attribute);
+            $ability = $this->getAttributeViewAbilityMethod($attribute);
 
             if (is_callable([$policy, $ability])) {
                 return Gate::denies($ability, $this);
@@ -41,10 +41,15 @@ trait AuthorizedAttributes
         }
 
         return array_filter($this->fillable, function ($attribute) use ($policy) {
-            $ability = $this->getAttributeAbilityMethod($attribute);
+            $view_ability = $this->getAttributeViewAbilityMethod($attribute);
+            $update_ability = $this->getAttributeUpdateAbilityMethod($attribute);
 
-            if (is_callable([$policy, $ability])) {
-                return ! Gate::denies($ability, $this);
+            if (is_callable([$policy, $view_ability])) {
+                return ! Gate::denies($view_ability, $this);
+            }
+
+            if (is_callable([$policy, $update_ability])) {
+                return ! Gate::denies($update_ability, $this);
             }
 
             return true;
@@ -72,8 +77,13 @@ trait AuthorizedAttributes
      * @param  string  $attribute
      * @return string
      */
-    protected function getAttributeAbilityMethod($attribute)
+    protected function getAttributeViewAbilityMethod($attribute)
     {
         return 'see'.Str::studly($attribute);
+    }
+
+    protected function getAttributeUpdateAbilityMethod($attribute)
+    {
+        return 'change'.Str::studly($attribute);
     }
 }
