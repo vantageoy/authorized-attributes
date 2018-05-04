@@ -82,6 +82,23 @@ trait AuthorizedAttributes
         return 'see'.Str::studly($attribute);
     }
 
+    /**
+     * Backward-compatibility
+     *
+     * @param $attribute
+     * @return string
+     */
+    protected function getAttributeAbilityMethod($attribute)
+    {
+        return $this->getAttributeViewAbilityMethod($attribute);
+    }
+
+    /**
+     * Get the method name for the ability to update attribute in the model policy.
+     *
+     * @param  string  $attribute
+     * @return string
+     */
     protected function getAttributeUpdateAbilityMethod($attribute)
     {
         return 'change'.Str::studly($attribute);
