@@ -7,6 +7,15 @@ use Illuminate\Support\Str;
 
 trait AuthorizedAttributes
 {
+
+    private function _isEnabled() {
+        static $is_enabled = null;
+
+        if ($is_enabled == null)
+            $is_enabled = app('config')->get('authorized-attributes.enabled', true);
+
+        return $is_enabled;
+    }
     /**
      * Get the hidden attributes for the model.
      *
@@ -14,7 +23,7 @@ trait AuthorizedAttributes
      */
     public function getHidden()
     {
-        if (! $policy = Gate::getPolicyFor(self::class)) {
+        if (! $this->_isEnabled() || ! $policy = Gate::getPolicyFor(self::class)) {
             return $this->hidden;
         }
 
@@ -36,7 +45,7 @@ trait AuthorizedAttributes
      */
     public function getFillable()
     {
-        if (! $policy = Gate::getPolicyFor(self::class)) {
+        if (! $this->_isEnabled() || ! $policy = Gate::getPolicyFor(self::class)) {
             return $this->fillable;
         }
 
