@@ -9,9 +9,9 @@ trait AuthorizedAttributes
 {
 
     private function _isEnabled() {
-        static $is_enabled = null;
+        static $is_enabled;
 
-        if ($is_enabled == null)
+        if (is_null($is_enabled))
             $is_enabled = app('config')->get('authorized-attributes.enabled', true);
 
         return $is_enabled;
