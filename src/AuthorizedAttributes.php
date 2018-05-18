@@ -19,10 +19,10 @@ trait AuthorizedAttributes
         }
 
         return array_filter($this->hidden, function ($attribute) use ($policy) {
-            $ability = $this->getAttributeViewAbilityMethod($attribute);
+            $view_ability = $this->getAttributeViewAbilityMethod($attribute);
 
-            if (is_callable([$policy, $ability])) {
-                return Gate::denies($ability, $this);
+            if (is_callable([$policy, $view_ability])) {
+                return Gate::denies($view_ability, $this);
             }
 
             return true;
@@ -41,12 +41,7 @@ trait AuthorizedAttributes
         }
 
         return array_filter($this->fillable, function ($attribute) use ($policy) {
-            $view_ability = $this->getAttributeViewAbilityMethod($attribute);
             $update_ability = $this->getAttributeUpdateAbilityMethod($attribute);
-
-            if (is_callable([$policy, $view_ability])) {
-                return ! Gate::denies($view_ability, $this);
-            }
 
             if (is_callable([$policy, $update_ability])) {
                 return ! Gate::denies($update_ability, $this);
@@ -54,32 +49,6 @@ trait AuthorizedAttributes
 
             return true;
         });
-    }
-
-    /**
-     * Make the given, typically fillable, attributes non-fillable (but not guarded).
-     *
-     * @param  array|string  $attributes
-     * @return $this
-     */
-    public function makeNonFillable($attributes)
-    {
-        $attributes = is_array($attributes) ? $attributes : func_get_args();
-
-        $this->fillable = array_diff($this->fillable, (array) $attributes);
-
-        return $this;
-    }
-
-    /**
-     * Get the method name for the attribute visibility ability in the model policy.
-     *
-     * @param  string  $attribute
-     * @return string
-     */
-    protected function getAttributeViewAbilityMethod($attribute)
-    {
-        return 'see'.Str::studly($attribute);
     }
 
     /**
@@ -91,6 +60,17 @@ trait AuthorizedAttributes
     protected function getAttributeAbilityMethod($attribute)
     {
         return $this->getAttributeViewAbilityMethod($attribute);
+    }
+
+    /**
+     * Get the method name for the attribute visibility ability in the model policy.
+     *
+     * @param  string  $attribute
+     * @return string
+     */
+    protected function getAttributeViewAbilityMethod($attribute)
+    {
+        return 'see'.Str::studly($attribute);
     }
 
     /**
