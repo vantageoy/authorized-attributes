@@ -84,6 +84,12 @@ class PostPolicy
 
 ## Other
 
+### Disable policy checks
+
+E.g.
+
+```config(['authorized-attributes.enabled' => false]); // disable attribute policy checks```
+
 ### Mixin with always hidden attributes
 
 The attributes will be hidden if no policy or ability (method) are found.

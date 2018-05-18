@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 trait AuthorizedAttributes
 {
 
-    private function _isEnabled() {
+    private function _isAuthorizedAttributesEnabled() {
         static $is_enabled;
 
         if (is_null($is_enabled))
@@ -23,7 +23,7 @@ trait AuthorizedAttributes
      */
     public function getHidden()
     {
-        if (! $this->_isEnabled() || ! $policy = Gate::getPolicyFor(self::class)) {
+        if (! $this->_isAuthorizedAttributesEnabled() || ! $policy = Gate::getPolicyFor(self::class)) {
             return $this->hidden;
         }
 
@@ -45,7 +45,7 @@ trait AuthorizedAttributes
      */
     public function getFillable()
     {
-        if (! $this->_isEnabled() || ! $policy = Gate::getPolicyFor(self::class)) {
+        if (! $this->_isAuthorizedAttributesEnabled() || ! $policy = Gate::getPolicyFor(self::class)) {
             return $this->fillable;
         }
 
