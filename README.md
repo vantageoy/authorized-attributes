@@ -34,6 +34,13 @@ class Post extends Model
      * @var array
      */
     protected $hidden = ['author_comments'];
+    
+    /**
+     * The attributes that should be fillable from requests.
+     *
+     * @var array
+     */
+    protected $fillable = ['content'];
 }
 ```
 
@@ -50,13 +57,25 @@ use App\User;
 class PostPolicy
 {
     /**
-     * Determine if a post author_comments-atrribute can be seen by the user.
+     * Determine if a post author_comments atrribute can be seen and changed by the user.
      *
      * @param  \App\User  $user
      * @param  \App\Post  $post
      * @return bool
      */
     public function seeAuthorComments(User $user, Post $post)
+    {
+        return $user->isAuthor() || $user->created($post);
+    }
+    
+    /**
+     * Determine if the Post content atrribute can be changed by the user.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Post  $post
+     * @return bool
+     */
+    public function changeContent(User $user, Post $post)
     {
         return $user->isAuthor() || $user->created($post);
     }
@@ -82,9 +101,21 @@ class Post extends Model
      * @param  string  $attribute
      * @return string
      */
-    protected function getAttributeAbilityMethod($attribute)
+    protected function getAttributeViewAbilityMethod($attribute)
     {
         return $attribute;
     }
+    
+    /**
+     * Get the method name for the attribute change ability in the model policy.
+     *
+     * @param  string  $attribute
+     * @return string
+     */
+    protected function getAttributeUpdateAbilityMethod($attribute)
+    {
+        return $attribute;
+    }
+
 }
 ```
