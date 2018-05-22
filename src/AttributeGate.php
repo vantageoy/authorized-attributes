@@ -9,7 +9,7 @@ class AttributeGate
 {
     public static function getHidden(Model $model, $fields, $policy)
     {
-        return array_filter($fields, function ($attribute) use ($model, $policy) {
+        return array_values(array_filter($fields, function ($attribute) use ($model, $policy) {
             $ability = $model->getAttributeViewAbilityMethod($attribute);
 
             if (is_callable([$policy, $ability])) {
@@ -17,7 +17,7 @@ class AttributeGate
             }
 
             return true;
-        });
+        }));
     }
 
     public static function getFillable(Model $model, $fields, $policy)
