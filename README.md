@@ -1,12 +1,10 @@
 ## Authorized Model Attributes for Laravel 5
 
-Provides ability to dynamically add hidden columns to the models.
-
-**Note:** There is also a `makeHidden()` method available if you only need hide certain columns *only from one model*.
+Provides ability to dynamically add `$hidden` and `$fillable` columns to the models.
 
 ### Installation
 
-Just require the package to your Laravel project.
+Require the package to your Laravel project.
 
 ```
 composer require salomoni/authorized-attributes
@@ -27,24 +25,24 @@ use Salomoni\AuthorizedAttributes;
 class Post extends Model
 {
     use AuthorizedAttributes;
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
-    protected $hidden = ['author_comments'];
     
     /**
      * The attributes that should be fillable from requests.
      *
      * @var array
      */
-    protected $fillable = ['content'];
+    protected $fillable = ['title', 'content', 'author_id'];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = ['draft'];
 }
 ```
 
-[Create and register a model policy](https://laravel.com/docs/authorization#creating-policies). Add methods for the hidden attributes in camel-case prefixed with `see`.
+[Create and register a model policy](https://laravel.com/docs/authorization#creating-policies).
 
 ```php
 <?php
@@ -57,41 +55,47 @@ use App\User;
 class PostPolicy
 {
     /**
-     * Determine if a post author_comments atrribute can be seen and changed by the user.
+     * Determine if an draft atrribute can be seen by the user.
      *
      * @param  \App\User  $user
      * @param  \App\Post  $post
      * @return bool
      */
-    public function seeAuthorComments(User $user, Post $post)
+    public function seeDraft(User $user, Post $post)
     {
-        return $user->isAuthor() || $user->created($post);
+    	// Post drafts can only be seen by admins and the post author
+        return $user->isAdmin() || $user->created($post);
     }
     
     /**
-     * Determine if the Post content atrribute can be changed by the user.
+     * Determine if the author_id atrribute can be changed by the user.
      *
      * @param  \App\User  $user
      * @param  \App\Post  $post
      * @return bool
      */
-    public function changeContent(User $user, Post $post)
+    public function changeAuthorId(User $user, Post $post)
     {
-        return $user->isAuthor() || $user->created($post);
+    	// Admins can re-assign the author for non-published posts
+        return $user->isAdmin() && $post->isNotPublished();
     }
 }
 ```
 
-## Other
+<hr>
 
-### Mixin with always hidden attributes
+### Customization
 
-The attributes will be hidden if no policy or ability (method) are found.
+#### Mixin with always hidden attributes
 
-### Modify the ability method name
+The attributes will be hidden if no policy or ability are found as they would normally be.
+
+#### Modify the ability method names
 
 ```php
 <?php
+
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
@@ -101,21 +105,20 @@ class Post extends Model
      * @param  string  $attribute
      * @return string
      */
-    protected function getAttributeViewAbilityMethod($attribute)
+    public function getAttributeViewAbilityMethod($attribute)
     {
-        return $attribute;
+        return 'see'.Str::studly($attribute);
     }
-    
+
     /**
-     * Get the method name for the attribute change ability in the model policy.
+     * Get the model policy ability method name to update an model attribute.
      *
      * @param  string  $attribute
      * @return string
      */
-    protected function getAttributeUpdateAbilityMethod($attribute)
+    public function getAttributeUpdateAbilityMethod($attribute)
     {
-        return $attribute;
+        return 'edit'.Str::studly($attribute);
     }
-
 }
 ```
