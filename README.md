@@ -2,6 +2,10 @@
 
 Provides ability to dynamically add `$hidden` and `$fillable` columns to the models.
 
+Also see [Laravel API Resources](https://laravel.com/docs/eloquent-resources#conditional-attributes) if that approach suits your needs.
+
+<hr>
+
 ### Installation
 
 Require the package to your Laravel project.
