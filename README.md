@@ -78,7 +78,7 @@ class PostPolicy
      * @param  \App\Post  $post
      * @return bool
      */
-    public function changeAuthorId(User $user, Post $post)
+    public function editAuthorId(User $user, Post $post)
     {
     	// Admins can re-assign the author for non-published posts
         return $user->isAdmin() && $post->isNotPublished();
