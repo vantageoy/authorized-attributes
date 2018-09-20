@@ -14,7 +14,10 @@ trait AuthorizedAttributes
      */
     public function getHidden()
     {
-        if (! $policy = Gate::getPolicyFor(self::class)) {
+        if (
+            ! $policy = Gate::getPolicyFor(static::class) &&
+            ! $policy = Gate::getPolicyFor(self::class)
+        ) {
             return $this->hidden;
         }
 
@@ -28,7 +31,10 @@ trait AuthorizedAttributes
      */
     public function getFillable()
     {
-        if (! $policy = Gate::getPolicyFor(self::class)) {
+        if (
+            ! $policy = Gate::getPolicyFor(static::class) &&
+            ! $policy = Gate::getPolicyFor(self::class)
+        ) {
             return $this->fillable;
         }
 
