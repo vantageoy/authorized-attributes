@@ -14,7 +14,15 @@ trait AuthorizedAttributes
      */
     public function getHidden()
     {
-        if (! $policy = Gate::getPolicyFor(self::class)) {
+        $policy = Gate::getPolicyFor(static::class);
+
+        // If no policy found, check does this extend another model
+        // and try get the policy from that one
+        if (! $policy && static::class !== self::class) {
+            $policy = Gate::getPolicyFor(self::class);
+        }
+
+        if (! $policy) {
             return $this->hidden;
         }
 
@@ -28,7 +36,15 @@ trait AuthorizedAttributes
      */
     public function getFillable()
     {
-        if (! $policy = Gate::getPolicyFor(self::class)) {
+        $policy = Gate::getPolicyFor(static::class);
+
+        // If no policy found, check does this extend another model
+        // and try get the policy from that one
+        if (! $policy && static::class !== self::class) {
+            $policy = Gate::getPolicyFor(self::class);
+        }
+
+        if (! $policy) {
             return $this->fillable;
         }
 
