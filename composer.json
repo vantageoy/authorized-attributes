@@ -2,7 +2,12 @@
     "name": "salomoni/authorized-attributes",
     "description": "Authorized Model Attributes for Laravel",
     "license": "MIT",
-    "keywords": ["laravel", "attributes", "authorization", "hidden"],
+    "keywords": [
+        "laravel",
+        "attributes",
+        "authorization",
+        "hidden"
+    ],
     "authors": [
         {
             "name": "Jari Pekkala",
@@ -10,9 +15,8 @@
         }
     ],
     "require": {
-        "php": ">=5.6.4",
-        "illuminate/auth": "5.4.x|5.5.x|5.6.x",
-        "illuminate/support": "5.4.x|5.5.x|5.6.x"
+        "illuminate/auth": "5.x",
+        "illuminate/support": "5.x"
     },
     "autoload": {
         "psr-4": {
