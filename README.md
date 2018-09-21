@@ -11,14 +11,14 @@ Also see [Laravel API Resources](https://laravel.com/docs/eloquent-resources#con
 Require the package to your Laravel project.
 
 ```
-composer require salomoni/authorized-attributes
+composer require vantage/authorized-attributes
 ```
 
 ### Usage
 
 > Please note that this package falls back to the core `Guard` and there are some minor differences of writing the policies between Laravel versions. See the official docs at https://laravel.com/docs/authorization
 
-Use the `Salomoni\AuthorizedAttributes` trait
+Use the `Vantage\AuthorizedAttributes` trait
 
 ```php
 <?php
@@ -26,12 +26,12 @@ Use the `Salomoni\AuthorizedAttributes` trait
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Salomoni\AuthorizedAttributes;
+use Vantage\AuthorizedAttributes;
 
 class Post extends Model
 {
     use AuthorizedAttributes;
-    
+
     /**
      * The attributes that should be fillable from requests.
      *
@@ -72,7 +72,7 @@ class PostPolicy
     	// Post drafts can only be seen by admins and the post author
         return $user->isAdmin() || $user->created($post);
     }
-    
+
     /**
      * Determine if the author_id attribute can be changed by the user.
      *

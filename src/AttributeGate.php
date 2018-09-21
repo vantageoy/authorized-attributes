@@ -1,6 +1,6 @@
 <?php
 
-namespace Salomoni;
+namespace Vantage;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Salomoni;
+namespace Vantage;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;

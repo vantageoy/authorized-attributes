@@ -1,5 +1,5 @@
 {
-    "name": "salomoni/authorized-attributes",
+    "name": "vantage/authorized-attributes",
     "description": "Authorized Model Attributes for Laravel",
     "license": "MIT",
     "keywords": [
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Salomoni\\": "src/"
+            "Vantage\\": "src/"
         }
     }
 }
