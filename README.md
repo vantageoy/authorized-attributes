@@ -59,7 +59,7 @@ use App\User;
 class PostPolicy
 {
     /**
-     * Determine if an draft atrribute can be seen by the user.
+     * Determine if an draft attribute can be seen by the user.
      *
      * @param  \App\User  $user
      * @param  \App\Post  $post
@@ -72,7 +72,7 @@ class PostPolicy
     }
     
     /**
-     * Determine if the author_id atrribute can be changed by the user.
+     * Determine if the author_id attribute can be changed by the user.
      *
      * @param  \App\User  $user
      * @param  \App\Post  $post
