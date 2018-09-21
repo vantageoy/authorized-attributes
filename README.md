@@ -16,6 +16,8 @@ composer require salomoni/authorized-attributes
 
 ### Usage
 
+> Please note that this package falls back to the core `Guard` and there are some minor differences of writing the policies between Laravel versions. See the official docs at https://laravel.com/docs/authorization
+
 Use the `Salomoni\AuthorizedAttributes` trait
 
 ```php
