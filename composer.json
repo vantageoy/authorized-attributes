@@ -11,15 +11,15 @@
     "authors": [
         {
             "name": "Jari Pekkala",
-            "email": "jari.pekkala@outlook.com"
+            "email": "jari@vantage.fi"
         }
     ],
     "require": {
-        "illuminate/auth": "5.8.x",
-        "illuminate/support": "5.8.x"
+        "illuminate/auth": "6.x",
+        "illuminate/support": "6.x"
     },
     "require-dev": {
-        "orchestra/testbench": "3.8.x"
+        "orchestra/testbench": "4.x"
     },
     "autoload": {
         "psr-4": {
