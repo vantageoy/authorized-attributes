@@ -1,4 +1,4 @@
-## Authorized Model Attributes for Laravel 5
+## Authorized Model Attributes for Laravel
 
 Provides ability to dynamically add `$hidden` and `$fillable` columns to the models.
 
